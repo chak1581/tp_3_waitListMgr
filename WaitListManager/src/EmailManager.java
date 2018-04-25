@@ -1,52 +1,90 @@
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.*;
 //import javax.mail.*;
 //import javax.mail.internet.*;
 import javax.activation.*;
+import javax.mail.Authenticator;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 
 public class EmailManager {
 
-   public static void main(String [] args) {    
-      // Recipient's email ID needs to be mentioned.
-     /* String to = "abcd@gmail.com";
+   public static void main(String [] args) {
+	   
+	   sendEmail();
+   }
+   
+   private static String loadEmailText() {
+		
+		String textFile = "email.txt";
+       BufferedReader br = null;
+       String line = "";
+       String msg = "";
+       try {
 
-      // Sender's email ID needs to be mentioned
-      String from = "web@gmail.com";
+           br = new BufferedReader(new FileReader(textFile));
+           while ((line = br.readLine()) != null) {
+        	   msg += line;
+           }
 
-      // Assuming you are sending email from localhost
-      String host = "localhost";
+       } catch (FileNotFoundException e) {
+           e.printStackTrace();
+       } catch (IOException e) {
+           e.printStackTrace();
+       } finally {
+           if (br != null) {
+               try {
+                   br.close();
+               } catch (IOException e) {
+                   e.printStackTrace();
+               }
+           }
+       }
+	return msg;
 
-      // Get system properties
-      Properties properties = System.getProperties();
+		
+	}
+   
+   private static void sendEmail() {
+	   
+	   Session session ;
+	      String to = "seis.waitlist@gmail.com";
+	      String from = "seis.waitlist@gmail.com";
+	     // String host = "localhost";
+	      Properties properties = System.getProperties();
+	      properties.put("mail.smtp.starttls.enable", "true");
+	      properties.put("mail.smtp.auth", "true");
+	      // Setup mail server
+	      properties.setProperty("mail.smtp.host", "smtp.gmail.com");
+	      properties.put("mail.smtp.port", "587");
+	      session=Session.getInstance(properties,new Authenticator() {
+	          protected PasswordAuthentication getPasswordAuthentication() {
+	              return new PasswordAuthentication("seis.waitlist@gmail.com","vibs_seis635"); 
+	          }
+	      });
 
-      // Setup mail server
-      properties.setProperty("mail.smtp.host", host);
 
-      // Get the default Session object.
-      Session session = Session.getDefaultInstance(properties);
-
-      try {
-         // Create a default MimeMessage object.
-         MimeMessage message = new MimeMessage(session);
-
-         // Set From: header field of the header.
-         message.setFrom(new InternetAddress(from));
-
-         // Set To: header field of the header.
-         message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
-
-         // Set Subject: header field
-         message.setSubject("This is the Subject Line!");
-
-         // Now set the actual message
-         message.setText("This is actual message");
-
-         // Send message
-         Transport.send(message);
-         System.out.println("Sent message successfully....");
-      } catch (MessagingException mex) {
-         mex.printStackTrace();
-      }
-   }*/
-}
+	      try {
+	       
+	         MimeMessage message = new MimeMessage(session);
+	         message.setFrom(new InternetAddress(from));
+	         message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
+	         message.setSubject("This is the Subject Line!");
+	         message.setText(loadEmailText());
+	         Transport.send(message);
+	         System.out.println("Sent message successfully....");
+	      } catch (MessagingException mex) {
+	         mex.printStackTrace();
+	      }
+	   
+   }
 }
