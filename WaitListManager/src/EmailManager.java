@@ -18,12 +18,9 @@ import javax.mail.internet.MimeMessage;
 
 public class EmailManager {
 
-   public static void main(String [] args) {
-	   
-	   sendEmail();
-   }
+  
    
-   private static String loadEmailText() {
+   static String loadEmailText() {
 		
 		String textFile = "email.txt";
        BufferedReader br = null;
@@ -54,10 +51,10 @@ public class EmailManager {
 		
 	}
    
-   private static void sendEmail() {
+   public static void sendEmail(String recepient) {
 	   
 	   Session session ;
-	      String to = "seis.waitlist@gmail.com";
+	      String to = recepient;
 	      String from = "seis.waitlist@gmail.com";
 	     // String host = "localhost";
 	      Properties properties = System.getProperties();
