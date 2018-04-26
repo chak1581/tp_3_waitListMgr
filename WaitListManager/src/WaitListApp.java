@@ -12,6 +12,7 @@ public class WaitListApp {
 		getMostRecentReport("C:\\Users\\Dell\\git\\tp_3_waitListMgr\\WaitListManager\\reports\\");
 		System.out.println("***New Report Upload***");
 		uploadRegistrationsReport();
+		if(registration.getCurrentRegistration()!=null && registration.getPreviousRegistration()!=null) {
 		boolean openSeat = registration.determineOpenSeat(registration.getPreviousRegistration(),registration.getCurrentRegistration());
 		if(openSeat==true) {
 			sendEmailToWaitListCandidate();
@@ -19,7 +20,7 @@ public class WaitListApp {
 		else {
 			System.out.println("No Changes in Registrations !");
 		}
-		
+		}
 	}
 
 
@@ -51,6 +52,7 @@ public class WaitListApp {
 	private static void getMostRecentReport(String dirName) {
 	
 		 File fl = new File(dirName);
+		
 		    File[] files = fl.listFiles(new FileFilter() {          
 		        public boolean accept(File file) {
 		            return file.isFile();
@@ -58,6 +60,7 @@ public class WaitListApp {
 		    });
 		    long lastMod = Long.MIN_VALUE;
 		    File choice = null;
+		    if (files.length>0) {
 		    for (File file : files) {
 		        if (file.lastModified() > lastMod) {
 		            choice = file;
@@ -67,6 +70,11 @@ public class WaitListApp {
 		    
 		    System.out.println(choice);
 		    registration.setPreviousRegistration(CourseRegistration.analyzeCourseRegistrationReport(choice.toString()));
+		    }
+		    
+		    else {
+		    	System.out.println("No Files in the Reports Folder");
+		    }
 		    
 	}
 
@@ -83,7 +91,13 @@ public class WaitListApp {
 		 System.out.println(fileName);
 		 if(file.renameTo(new File(dirName+fileName))) {
 			 System.out.println("File Move Successful");
+			 if(registration.getPreviousRegistration()!=null) {
 			 registration.setCurrentRegistration(CourseRegistration.analyzeCourseRegistrationReport(dirName+fileName));
+			 }
+			 else {
+				 System.out.println("Run the Application again to compare the reports.");
+			
+			 }
 		 }
 		 else
 			 System.out.println("Error");
