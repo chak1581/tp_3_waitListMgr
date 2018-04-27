@@ -57,7 +57,7 @@ public class WaitListApp {
 	}
 
 
-	private static String getMostRecentReport(String dirName) {
+	public static String getMostRecentReport(String dirName) {
 	String response = "failure";
 		 File fl = new File(dirName);
 		
