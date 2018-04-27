@@ -18,9 +18,17 @@ import javax.mail.internet.MimeMessage;
 
 public class EmailManager {
 
-  
+   String emailSent;
    
-   static String loadEmailText() {
+public String getEmailSent() {
+	return emailSent;
+}
+
+public  void setEmailSent(String emailSent) {
+	this.emailSent = emailSent;
+}
+
+ String loadEmailText() {
 		
 		String textFile = "email.txt";
        BufferedReader br = null;
@@ -51,7 +59,7 @@ public class EmailManager {
 		
 	}
    
-   public static void sendEmail(String recepient) {
+   public  void sendEmail(String recepient) {
 	   
 	   Session session ;
 	      String to = recepient;
@@ -78,8 +86,9 @@ public class EmailManager {
 	         message.setSubject("This is the Subject Line!");
 	         message.setText(loadEmailText());
 	         Transport.send(message);
-	         System.out.println("Sent message successfully....");
+	         setEmailSent("Email Sent Successfully !");
 	      } catch (MessagingException mex) {
+	    	  setEmailSent("Error Occurred ! Email Not Sent.");
 	         mex.printStackTrace();
 	      }
 	   

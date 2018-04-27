@@ -7,20 +7,31 @@ public class WaitListApp {
 
 	static String fileName;
 	static CourseRegistration registration= new CourseRegistration();
+	static WaitListAppUI waitListAppUI = new WaitListAppUI();
+	
 	public static void main(String[] args) {
 		
-		getMostRecentReport("C:\\Users\\Dell\\git\\tp_3_waitListMgr\\WaitListManager\\reports\\");
-		System.out.println("***New Report Upload***");
-		uploadRegistrationsReport();
-		if(registration.getCurrentRegistration()!=null && registration.getPreviousRegistration()!=null) {
-		boolean openSeat = registration.determineOpenSeat(registration.getPreviousRegistration(),registration.getCurrentRegistration());
-		if(openSeat==true) {
-			sendEmailToWaitListCandidate();
+		waitListAppUI.loadApp();
+		String response = getMostRecentReport(".\\reports\\");
+		if(response == "success") {
+			waitListAppUI.initiateNewReportUpload();
 		}
 		else {
-			System.out.println("No Changes in Registrations !");
+			waitListAppUI.displayEmptyFolderMessage();
 		}
+	}
+
+
+	public static boolean startFileUpload() {
+		boolean openSeat = false;
+		uploadRegistrationsReport();
+		if(registration.getCurrentRegistration()!=null && registration.getPreviousRegistration()!=null) {
+		openSeat = registration.determineOpenSeat(registration.getPreviousRegistration(),registration.getCurrentRegistration());
+		if(openSeat==true) {
+			sendEmailToWaitListCandidate();			
+		  }
 		}
+		return openSeat;
 	}
 
 
@@ -49,8 +60,8 @@ public class WaitListApp {
 	}
 
 
-	private static void getMostRecentReport(String dirName) {
-	
+	private static String getMostRecentReport(String dirName) {
+	String response = "failure";
 		 File fl = new File(dirName);
 		
 		    File[] files = fl.listFiles(new FileFilter() {          
@@ -70,21 +81,20 @@ public class WaitListApp {
 		    
 		    System.out.println(choice);
 		    registration.setPreviousRegistration(CourseRegistration.analyzeCourseRegistrationReport(choice.toString()));
+		    response = "success";
 		    }
 		    
 		    else {
-		    	System.out.println("No Files in the Reports Folder");
+		    	response = "failure";
 		    }
+			return response;
 		    
 	}
 
-	private static void uploadRegistrationsReport() {
+	public static void uploadRegistrationsReport() {
 		//String filePath = "C:\\Users\\Dell\\Downloads\\abc.txt";
-	     System.out.println("Please provide the path of the file to be uploaded:");
-	     String dirName = "C:\\Users\\Dell\\\\git\\tp_3_waitListMgr\\WaitListManager\\reports\\";
-		 Scanner path = new Scanner(System.in);
-		 String filePath = path.next();
-		 System.out.println(filePath);
+		String filePath = waitListAppUI.getUserInput();
+	     String dirName = ".\\reports\\";
 		 File file = new File(filePath);
 		 fileName = file.getName();
 		 fileName = fileName.replaceAll(".csv", "."+System.currentTimeMillis()+".csv");
@@ -95,7 +105,7 @@ public class WaitListApp {
 			 registration.setCurrentRegistration(CourseRegistration.analyzeCourseRegistrationReport(dirName+fileName));
 			 }
 			 else {
-				 System.out.println("Run the Application again to compare the reports.");
+				 return;
 			
 			 }
 		 }
