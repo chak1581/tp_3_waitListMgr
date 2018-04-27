@@ -51,6 +51,27 @@ public String getUserInput() {
 	return filePath;
 	
 }
+
+public String getUserInputToSendEmail() {
+
+	System.out.println("Would you like to send emails to the waitlist candidates at this time? [Y/N]");
+	Scanner input = new Scanner(System.in); 
+	 String choice = input.next();
+	return choice;
+	
+}
+
+public String getEmailAddress() {
+	System.out.println("Enter the email address of the recepient:");
+	 Scanner inputAddress = new Scanner(System.in); 
+	 String emailAddress = inputAddress.next();
+	return emailAddress;
+}
+
+public void displayEmailSuccessMsg(String emailSent) {
+	System.out.println(emailSent);
+	
+}
 	
 	
 }

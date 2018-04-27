@@ -37,9 +37,7 @@ public class WaitListApp {
 
 	private static void sendEmailToWaitListCandidate() {
 		
-		System.out.println("Would you like to send emails to the waitlist candidates at this time? [Y/N]");
-		Scanner input = new Scanner(System.in); 
-		 String choice = input.next();
+		String choice = waitListAppUI.getUserInputToSendEmail();
 		 if(choice.equalsIgnoreCase("Y")) {
 			 
 			 EmailManager emailManager = new EmailManager();
@@ -48,10 +46,9 @@ public class WaitListApp {
 			 System.out.println(emailManager.loadEmailText());
 			 System.out.println("Note: If you need to change the text of the email, "
 			 		+ "please go to email.txt file and make your changes.");
-			 System.out.println("Enter the email address of the recepient:");
-			 Scanner inputAddress = new Scanner(System.in); 
-			 String emailAddress = inputAddress.next();
+			 String emailAddress = waitListAppUI.getEmailAddress();			 
 			 emailManager.sendEmail(emailAddress);
+			 waitListAppUI.displayEmailSuccessMsg(emailManager.getEmailSent());
 		 }
 		 
 		 else {
@@ -110,7 +107,7 @@ public class WaitListApp {
 			 }
 		 }
 		 else
-			 System.out.println("Error");
+			 waitListAppUI.getFailureMessage();
 		
 	}
 	
