@@ -76,7 +76,7 @@ public class CourseRegistration {
 	}	
 	}
 
-	static boolean determineOpenSeat(Map previousRegistration, Map currentRegistration) {	
+	 boolean determineOpenSeat(Map previousRegistration, Map currentRegistration) {	
 		boolean openSeat =  false;
 		List<String> beforeList = getAllKeys(previousRegistration);
 	    List<String> afterList = getAllKeys(currentRegistration);
