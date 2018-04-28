@@ -30,7 +30,7 @@ public  void setEmailSent(String emailSent) {
 
  String loadEmailText() {
 		
-		String textFile = "email.txt";
+	   String textFile = "email.txt";
        BufferedReader br = null;
        String line = "";
        String msg = "";
@@ -59,10 +59,10 @@ public  void setEmailSent(String emailSent) {
 		
 	}
    
-   public  void sendEmail(String recepient) {
+   public  void sendEmail(String recipient) {
 	   
 	   Session session ;
-	      String to = recepient;
+	      String to = recipient;
 	      String from = "seis.waitlist@gmail.com";
 	     // String host = "localhost";
 	      Properties properties = System.getProperties();

@@ -1,6 +1,8 @@
 Dear Student,
 
-There is an open seat in the course. Please respond back to confirm your registration for the same.
+There is an open seat in the course[seisXXX]. Please reply to this email as soon as possible to confirm your registration for the same.
+
+
 
 Thanks,
 GPS Staff

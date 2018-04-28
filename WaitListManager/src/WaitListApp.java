@@ -10,7 +10,6 @@ public class WaitListApp {
 	static WaitListAppUI waitListAppUI = new WaitListAppUI();
 	
 	public static void main(String[] args) {
-		
 		waitListAppUI.loadApp();
 		String response = getMostRecentReport(".\\reports\\");
 		if(response == "success") {
@@ -30,6 +29,13 @@ public class WaitListApp {
 		if(openSeat==true) {
 			sendEmailToWaitListCandidate();			
 		  }
+		else {
+			waitListAppUI.print("No Changes in the Registrations !!");
+		}
+		}
+		else {
+			waitListAppUI.print("Thank you for uploading registrations report."
+					+ "\n There are no files at this time to find open seats.");
 		}
 		return openSeat;
 	}
@@ -41,18 +47,19 @@ public class WaitListApp {
 		 if(choice.equalsIgnoreCase("Y")) {
 			 
 			 EmailManager emailManager = new EmailManager();
-			 System.out.println("Please review the body of the email!");
-			 System.out.println("********************************************");
-			 System.out.println(emailManager.loadEmailText());
-			 System.out.println("Note: If you need to change the text of the email, "
-			 		+ "please go to email.txt file and make your changes.");
+			 waitListAppUI.print("Please review the body of the email!"
+			 		+ "\n**************************************************");
+			
+			 waitListAppUI.print(emailManager.loadEmailText());
+			 waitListAppUI.print("Note: If you need to change the text of the email, "
+			 		+ "please go to 'email.txt' file and make your changes.");
 			 String emailAddress = waitListAppUI.getEmailAddress();			 
 			 emailManager.sendEmail(emailAddress);
 			 waitListAppUI.displayEmailSuccessMsg(emailManager.getEmailSent());
 		 }
 		 
 		 else {
-			 System.out.println("Thank you !");
+			 System.out.println("*********Thank you for using WaitListManager!*********");
 		 }
 	}
 
@@ -97,7 +104,7 @@ public class WaitListApp {
 		 fileName = fileName.replaceAll(".csv", "."+System.currentTimeMillis()+".csv");
 		 System.out.println(fileName);
 		 if(file.renameTo(new File(dirName+fileName))) {
-			 System.out.println("File Move Successful");
+			 System.out.println("File Move Successfully.");
 			 if(registration.getPreviousRegistration()!=null) {
 			 registration.setCurrentRegistration(CourseRegistration.analyzeCourseRegistrationReport(dirName+fileName));
 			 }
@@ -150,7 +157,4 @@ public class WaitListApp {
 		
 	}
 */
-
-
-
 }

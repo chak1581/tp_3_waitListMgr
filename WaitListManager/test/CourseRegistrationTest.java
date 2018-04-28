@@ -97,5 +97,20 @@ CourseRegistration registration = new CourseRegistration();
 		assertEquals(true,openSeat);
 		
 	}
+	@Test
+	public void testAnalyzeCourseRegistrationReport() {
+		
+		String fileName = ".\\testReports\\registered_scrubbed.1524798318561.csv";
+		Map<String, Integer> testWordCount = new HashMap<String, Integer>();
+		Map<String, Integer> actualWordCount = new HashMap<String, Integer>();
+		actualWordCount.put("SEIS737", 1);
+		actualWordCount.put("SEIS734", 1);
+		actualWordCount.put("SEIS603", 1);
+		actualWordCount.put("SEIS632", 1);
+		actualWordCount.put("SEIS630", 2);
+		actualWordCount.put("Course", 1);
+		testWordCount = registration.analyzeCourseRegistrationReport(fileName);
+		assertEquals(actualWordCount,testWordCount);
+	}
 
 }
