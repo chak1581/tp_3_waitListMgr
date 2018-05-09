@@ -118,6 +118,26 @@ public class WaitListApp {
 		
 	}
 	
+	public static void uploadWaitlistReport() {
+		//String filePath = "C:\\Users\\Dell\\Downloads\\abc.txt";
+		CourseWaitList courseWaitList = new CourseWaitList();
+		String filePath = waitListAppUI.getUserInput();
+	     String dirName = ".\\waitlistReports\\";
+		 File file = new File(filePath);
+		 fileName = file.getName();
+		 fileName = fileName.replaceAll(".csv", "."+System.currentTimeMillis()+".csv");
+		 System.out.println(fileName);
+		 if(file.renameTo(new File(dirName+fileName))) {
+			 System.out.println("File Move Successfully.");
+			 courseWaitList.analyzeWaitListReport(fileName);
+		 }
+		 else
+			 waitListAppUI.getFailureMessage();
+		
+	}
+	
+	
+	
 /*private static void loadAllWaitListReport() {
 		
 	    System.out.println("Please provide the path of the waitlist report to be uploaded:");
