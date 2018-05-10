@@ -35,7 +35,7 @@ public class CourseRegistration {
 	
 	ArrayList <String>registrationList = new ArrayList<String>();
 	String csvFile = fileName;
-	System.out.println(csvFile);
+	//System.out.println(csvFile);
 	BufferedReader br = null;
 	String line = "";
 	String cvsSplitBy = ",";
@@ -49,14 +49,15 @@ public class CourseRegistration {
 	        
 	    }
 	    
-	    System.out.println(registrationList);
+	    //System.out.println(registrationList);
 		Map<String, Integer> wordCount = new HashMap<String, Integer>();
 	
 		for(String word: registrationList) {
 		  Integer count = wordCount.get(word);          
 		  wordCount.put(word, (count==null) ? 1 : count+1);  		  
 		}
-	System.out.println("Report -- Course Registration Analysis--File Name: "+fileName);
+	System.out.println("Report -- Course Registration Analysis--File Name: \n"+fileName+"\n");
+	System.out.println("In the format --- Course Name = no. of registered students \n");
 	System.out.println(wordCount.toString());
 	return wordCount;
 	} catch (FileNotFoundException e) {
@@ -91,7 +92,7 @@ public class CourseRegistration {
 	            if (!(previousRegistration.get(commonList1.get(i))).equals(currentRegistration.get(commonList1.get(i)))) 
 	            {
 	            	openSeat = true;
-	                System.out.println(commonList1.get(i)+" Unequal: Before- "+previousRegistration.get(commonList1.get(i))+" After- "+currentRegistration.get(commonList1.get(i)));
+	                System.out.println("\n"+commonList1.get(i)+" Registrations: Before- "+previousRegistration.get(commonList1.get(i))+" After- "+currentRegistration.get(commonList1.get(i)));
 	            }
 	          
 	        }
