@@ -100,7 +100,7 @@ CourseRegistration registration = new CourseRegistration();
 	@Test
 	public void testAnalyzeCourseRegistrationReport() {
 		
-		String fileName = ".\\testReports\\registered_scrubbed.1524798318561.csv";
+		String fileName = ".\\testReports\\registered_scrubbed.csv";
 		Map<String, Integer> testWordCount = new HashMap<String, Integer>();
 		Map<String, Integer> actualWordCount = new HashMap<String, Integer>();
 		actualWordCount.put("SEIS737", 1);

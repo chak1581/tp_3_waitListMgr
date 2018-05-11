@@ -47,9 +47,10 @@ public class WaitListAppUI
 	private void displayUserGuide()
 	{
 		System.out.println("\r\n=========================User Manual=========================" + "\r\n" + "\r\n"
-				+ "• Upload a registration report from your local drive. \r\n" + "\r\n"
+				+ "• Provide the filepath for the desired registration report when prompted \r\n" + "\r\n"
 				+ "• Console will return the courses that have new open spots.\r\n" + "\r\n"
-				+ "• Customize email message to students.\r\n" + "\r\n"
+				+ "• Provide the filepath for the desired waitlist report when prompted (only when there is open spots).\r\n"
+				+ "\r\n" + "• Customize email message to students.\r\n" + "\r\n"
 				+ "• Send emails by typing each student's email address. \r\n" + "\r\n");
 	}
 
@@ -79,7 +80,8 @@ public class WaitListAppUI
 		System.out.println("Please provide the path of the file to be uploaded:");
 		Scanner path = new Scanner(System.in);
 		String filePath = path.next();
-		//System.out.println(filePath);
+		System.out.println(filePath);
+		// System.out.println(filePath);
 		return filePath;
 
 	}
@@ -113,5 +115,22 @@ public class WaitListAppUI
 
 		System.out.println(msg);
 	}
+
+	void getUserInputToDisplayMultipleWaitlist(CourseWaitList courseWaitList) {
+		  print("Would you like to run analysis to check if any student is registered in multiple courses?[Y/N]");
+		  Scanner input = new Scanner(System.in);
+		  String choice = input.next();
+		  courseWaitList.multipleWaitlistReport(choice);
+		
+	}
+
+	public void displayWaitListForSingleCourse(CourseWaitList courseWaitList) {
+	
+		  print("\n \nPlease enter the course ID to view the waitlisted students:");
+		  Scanner input = new Scanner(System.in);
+		  String choice = input.next();	
+		  courseWaitList.displayWaitListForCourse(choice,CourseWaitList.waitListStudentDetails);
+	
+	  }
 
 }
