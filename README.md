@@ -14,8 +14,8 @@ TP-3 Repo: https://github.com/chak1581/tp_3_waitListMgr
 #### 2. User app help and documentation
 User can choose to read through `user guide` when the app first starts to run. Console prompts user to type Y or N. 
 ============================User Manual=============================  
-• Provide the filepath for the desired registration report when prompted     
-• Console will return the courses that have new open spots.  
+• Provide the filepath for the desired registration report when prompted  
+• Console will return the courses that have new open spots. 
 • Provide the filepath for the desired waitlist report when prompted (only when there is open spots).  
 • Customize email message to students.  
 • Send emails by typing each student's email address.  
